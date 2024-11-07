@@ -3,7 +3,7 @@ type Props = {
   params: { id: number; photoId: number };
 };
 
-const UserPhotos = ({ params: { id, photoId } }: Props) => {
+const UserPhotos = async ({ params: { id, photoId } }: Props) => {
   return (
     <div>
       UserPhotos {id} {photoId}
