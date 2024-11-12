@@ -5,7 +5,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import bycrypt from "bcrypt";
-import { use } from "react";
 
 const prisma = new PrismaClient();
 
@@ -35,7 +34,7 @@ export const authOptions: NextAuthOptions = {
           user.hashedPassWord!
         );
 
-        return passWordsMatch ? use : null;
+        return passWordsMatch ? user : null;
       },
     }),
     GoogleProvider({
@@ -51,6 +50,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 };
+
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

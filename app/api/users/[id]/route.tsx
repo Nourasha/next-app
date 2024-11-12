@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "../schema";
 import prisma from "@/prisma/client";
-import { error } from "console";
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const userId = parseInt(params.id);
-  if (isNaN(userId))
-    return NextResponse.json({ error: "Invalid ID format" }, { status: 400 });
+  const userId = params.id;
+
   const user = await prisma.user.findUnique({
     where: { id: userId },
   });
@@ -22,7 +20,7 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const userId = parseInt(params.id);
+  const userId = params.id;
   const body = await request.json();
   const validation = schema.safeParse(body);
   if (!validation.success)
@@ -47,7 +45,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const userId = parseInt(params.id);
+  const userId = params.id;
   const user = await prisma.user.findUnique({
     where: { id: userId },
   });
